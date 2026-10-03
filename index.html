@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Arushi Jha — A Little Website for a Beautiful Soul</title>
+  <meta name="description" content="A cinematic, heartfelt digital celebration dedicated to Arushi Jha. Made with genuine wishes for happiness, success, and an amazing journey ahead.">
+  <meta property="og:title" content="For Arushi Jha — A Little Website for a Beautiful Soul">
+  <meta property="og:description" content="A little reminder of how wonderful life can be. We are always rooting for you.">
+  <meta property="og:image" content="assets/arushi_portrait.jpg">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts: Cormorant Garamond, Plus Jakarta Sans, Caveat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Custom Cursor Elements (Desktop) -->
+  <div class="custom-cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="custom-cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <!-- Background Particle & Petal Canvas -->
+  <canvas id="ambientCanvas" class="ambient-canvas" aria-hidden="true"></canvas>
+
+  <!-- Film Grain Overlay -->
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+  <!-- Hidden HTML5 Audio Element for Rich Ambient Music -->
+  <audio id="bgAudio" src="assets/ambient_piano.mp3" loop preload="auto"></audio>
+
+  <!-- Audio Controller (OFF by default as required) -->
+  <aside class="audio-widget" aria-label="Ambient Music Player">
+    <button id="musicToggleBtn" class="glass-pill-btn music-btn" aria-pressed="false" title="Play ambient piano music">
+      <span class="music-icon-wrap" aria-hidden="true">
+        <svg class="music-wave" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path class="wave-bar bar-1" d="M4 10v4"/>
+          <path class="wave-bar bar-2" d="M8 7v10"/>
+          <path class="wave-bar bar-3" d="M12 4v16"/>
+          <path class="wave-bar bar-4" d="M16 8v8"/>
+          <path class="wave-bar bar-5" d="M20 11v2"/>
+        </svg>
+      </span>
+      <span class="music-text" id="musicStatusText">Play a little music 🎵</span>
+    </button>
+  </aside>
+
+  <!-- Accessibility / Reduced Motion Control -->
+  <button id="motionToggleBtn" class="motion-toggle-btn" aria-label="Toggle reduced animations" title="Reduce motion">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="M12 3v18"/>
+    </svg>
+    <span class="sr-only">Toggle Motion</span>
+  </button>
+
+  <!-- CINEMATIC LOADING EXPERIENCE -->
+  <div id="loadingScreen" class="loading-screen" role="dialog" aria-modal="true" aria-label="Opening Presentation">
+    <div class="stars-backdrop" aria-hidden="true"></div>
+    <div class="loader-content">
+      <div class="loader-phase phase-1" id="loaderPhase1">
+        <p class="loader-eyebrow">A little something for…</p>
+      </div>
+      <div class="loader-phase phase-2" id="loaderPhase2">
+        <h1 class="loader-name">ARUSHI JHA</h1>
+        <div class="loader-glow-orb" aria-hidden="true"></div>
+      </div>
+      <div class="loader-phase phase-3" id="loaderPhase3">
+        <p class="loader-sub">Made with lots of good wishes ✨</p>
+      </div>
+      <button id="skipIntroBtn" class="skip-intro-btn">Enter Now →</button>
+    </div>
+  </div>
+
+  <!-- FLOATING NAVIGATION BAR -->
+  <header class="site-header" id="siteHeader">
+    <nav class="nav-container" aria-label="Main Navigation">
+      <a href="#hero" class="nav-brand" aria-label="Arushi Jha Home">
+        <span class="brand-sparkle">✨</span>
+        <span class="brand-text">Arushi Jha</span>
+      </a>
+
+      <button class="mobile-menu-toggle" id="mobileMenuBtn" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#hero" class="nav-link active">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#special" class="nav-link">Qualities</a></li>
+        <li><a href="#wishes" class="nav-link">Message</a></li>
+        <li><a href="#journey" class="nav-link">Journey</a></li>
+        <li><a href="#letter" class="nav-link">Letter</a></li>
+        <li><a href="#smile" class="nav-link">Smile</a></li>
+        <li><a href="#support" class="nav-link">With You</a></li>
+        <li><a href="#memories" class="nav-link">Memories</a></li>
+        <li><a href="#wishwall" class="nav-link">Wishes</a></li>
+        <li><a href="#finale" class="nav-link nav-link-highlight">Final Message</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main id="mainContent">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero-section" aria-label="Introduction">
+      <div class="hero-bg-wrapper">
+        <img src="assets/hero_sky.jpg" alt="Dreamy twilight sky with wildflowers" class="hero-bg-img" loading="eager">
+        <div class="hero-gradient-overlay" aria-hidden="true"></div>
+      </div>
+
+      <div class="hero-container">
+        <div class="hero-badge reveal-fade">
+          <span class="badge-dot"></span>
+          <span>A dedicated celebration for a beautiful soul</span>
+        </div>
+
+        <h1 class="hero-title reveal-text">
+          For Arushi Jha
+        </h1>
+
+        <p class="hero-subtitle reveal-fade" style="--delay: 0.2s">
+          A little reminder of how wonderful life can be.
+        </p>
+
+        <p class="hero-description reveal-fade" style="--delay: 0.4s">
+          For someone who deserves nothing but happiness, success, beautiful memories and an amazing journey ahead.
+        </p>
+
+        <div class="hero-actions reveal-fade" style="--delay: 0.6s">
+          <a href="#letter" class="btn btn-primary glow-button" id="heroOpenMsgBtn">
+            <span>Open Your Message ✨</span>
+          </a>
+          <a href="#about" class="btn btn-secondary glass-button" id="heroExploreBtn">
+            <span>Explore Your Journey ↓</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-scroll-indicator" aria-hidden="true">
+        <span class="scroll-mouse">
+          <span class="scroll-wheel"></span>
+        </span>
+        <span class="scroll-text">Scroll to discover</span>
+      </div>
+    </section>
+
+    <!-- PERSONAL PHOTO SECTION -->
+    <section id="about" class="photo-section section-padding" aria-label="The Person Behind the Smile">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-eyebrow">Dedicated to You</span>
+          <h2 class="section-title">The Person Behind the Smile</h2>
+          <p class="section-lead">A genuine smile that makes every corner of life a little brighter and more joyful.</p>
+        </div>
+
+        <div class="portrait-stage">
+          <div class="floating-words-cloud" aria-hidden="true">
+            <span class="float-tag tag-1">Kind</span>
+            <span class="float-tag tag-2">Beautiful</span>
+            <span class="float-tag tag-3">Genuine</span>
+            <span class="float-tag tag-4">Strong</span>
+            <span class="float-tag tag-5">Caring</span>
+            <span class="float-tag tag-6">Amazing</span>
+          </div>
+
+          <div class="portrait-frame-wrapper">
+            <div class="portrait-glowing-ring" aria-hidden="true"></div>
+            <div class="portrait-frame">
+              <img id="arushiPortraitImg" src="assets/arushi_portrait.jpg" alt="Photograph of Arushi Jha smiling warmly" class="portrait-img">
+              <div class="portrait-sheen" aria-hidden="true"></div>
+            </div>
+            
+            <!-- Quick photo customize button -->
+            <button id="changePhotoBtn" class="change-photo-badge" title="Change / Upload photo">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                <circle cx="12" cy="13" r="4"/>
+              </svg>
+              <span>Change Photo</span>
+            </button>
+            <input type="file" id="portraitFileInput" accept="image/*" class="sr-only" aria-hidden="true">
+          </div>
+        </div>
+
+        <div class="portrait-quote-box text-center">
+          <blockquote class="portrait-quote">
+            “Some people make life a little brighter simply by being themselves.”
+          </blockquote>
+          <div class="handwritten-accent">always remember this 🌸</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- “WHAT MAKES YOU SPECIAL” SECTION -->
+    <section id="special" class="special-section section-padding" aria-label="What Makes You Special">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-eyebrow">Reminders for the Soul</span>
+          <h2 class="section-title">A Few Things Worth Remembering About You</h2>
+          <p class="section-lead">On busy, quiet, or difficult days, take a moment to look back at these truths.</p>
+        </div>
+
+        <div class="special-cards-grid">
+          <!-- Card 1 -->
+          <article class="glass-card special-card" data-tilt>
+            <div class="card-glow" aria-hidden="true"></div>
+            <div class="card-num">01</div>
+            <div class="card-icon-wrap">
+              <span class="card-emoji">✨</span>
+            </div>
+            <h3 class="card-title">Your Smile</h3>
+            <p class="card-text">
+              “Never underestimate how much happiness a simple smile can bring.”
+            </p>
+            <div class="card-footer-note">Lighting up every room</div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="glass-card special-card" data-tilt>
+            <div class="card-glow" aria-hidden="true"></div>
+            <div class="card-num">02</div>
+            <div class="card-icon-wrap">
+              <span class="card-emoji">🤍</span>
+            </div>
+            <h3 class="card-title">Your Heart</h3>
+            <p class="card-text">
+              “Kindness is one of the most beautiful qualities a person can have.”
+            </p>
+            <div class="card-footer-note">Pure warmth and empathy</div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="glass-card special-card" data-tilt>
+            <div class="card-glow" aria-hidden="true"></div>
+            <div class="card-num">03</div>
+            <div class="card-icon-wrap">
+              <span class="card-emoji">🌿</span>
+            </div>
+            <h3 class="card-title">Your Strength</h3>
+            <p class="card-text">
+              “You are capable of getting through difficult days and continuing forward.”
+            </p>
+            <div class="card-footer-note">Grace and quiet courage</div>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="glass-card special-card" data-tilt>
+            <div class="card-glow" aria-hidden="true"></div>
+            <div class="card-num">04</div>
+            <div class="card-icon-wrap">
+              <span class="card-emoji">🌟</span>
+            </div>
+            <h3 class="card-title">Your Dreams</h3>
+            <p class="card-text">
+              “Your dreams deserve your effort, your patience and your belief.”
+            </p>
+            <div class="card-footer-note">Endless horizons awaiting</div>
+          </article>
+
+          <!-- Card 5 -->
+          <article class="glass-card special-card" data-tilt>
+            <div class="card-glow" aria-hidden="true"></div>
+            <div class="card-num">05</div>
+            <div class="card-icon-wrap">
+              <span class="card-emoji">🛤️</span>
+            </div>
+            <h3 class="card-title">Your Journey</h3>
+            <p class="card-text">
+              “You don't have to have everything figured out. Just keep moving forward.”
+            </p>
+            <div class="card-footer-note">One beautiful step at a time</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CINEMATIC MESSAGE SECTION -->
+    <section id="wishes" class="message-cinematic-section section-padding" aria-label="Our Wishes For You">
+      <div class="warm-glow-backdrop" aria-hidden="true"></div>
+      <div class="container message-container">
+        <div class="section-header text-center">
+          <span class="section-eyebrow">From the Heart</span>
+          <h2 class="section-title text-gold">So, Arushi… This Is What We Wish For You</h2>
+        </div>
+
+        <div class="scroll-message-wrapper">
+          <div class="message-line-card scroll-reveal">
+            <span class="line-decor">✦</span>
+            <p class="message-line-text">May life give you countless reasons to smile.</p>
+          </div>
+
+          <div class="message-line-card scroll-reveal">
+            <span class="line-decor">✦</span>
+            <p class="message-line-text">May you meet wonderful people, experience beautiful moments and create memories that you will remember for years.</p>
+          </div>
+
+          <div class="message-line-card scroll-reveal">
+            <span class="line-decor">✦</span>
+            <p class="message-line-text">May you have the courage to chase the things you truly want.</p>
+          </div>
+
+          <div class="message-line-card scroll-reveal">
+            <span class="line-decor">✦</span>
+            <p class="message-line-text">May your hard work turn into achievements.</p>
+          </div>
+
+          <div class="message-line-card scroll-reveal">
+            <span class="line-decor">✦</span>
+            <p class="message-line-text">May your dreams slowly become reality.</p>
+          </div>
+
+          <div class="message-line-card scroll-reveal">
+            <span class="line-decor">✦</span>
+            <p class="message-line-text highlight-line">And whenever life feels difficult, may you always find the strength to keep going.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FUTURE / DREAMS SECTION -->
+    <section id="journey" class="journey-section section-padding" aria-label="Future Journey">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-eyebrow">The Path Ahead</span>
+          <h2 class="section-title">Your Story Is Just Beginning…</h2>
+          <p class="section-lead">A milestone timeline designed for your inspiring journey.</p>
+        </div>
+
+        <div class="timeline-wrapper">
+          <div class="timeline-track" id="timelineTrack" aria-hidden="true">
+            <div class="timeline-bar" id="timelineBar"></div>
+          </div>
+
+          <div class="timeline-grid">
+            <!-- Node 1 -->
+            <div class="timeline-node active" data-step="1">
+              <div class="node-marker">
+                <span class="node-pulse"></span>
+                <span class="node-core"></span>
+              </div>
+              <div class="node-content glass-card">
+                <span class="node-badge">STEP 01</span>
+                <h3 class="node-title">DREAMS</h3>
+                <p class="node-desc">“Dream without limiting yourself.”</p>
+              </div>
+            </div>
+
+            <!-- Node 2 -->
+            <div class="timeline-node" data-step="2">
+              <div class="node-marker">
+                <span class="node-pulse"></span>
+                <span class="node-core"></span>
+              </div>
+              <div class="node-content glass-card">
+                <span class="node-badge">STEP 02</span>
+                <h3 class="node-title">EFFORT</h3>
+                <p class="node-desc">“Put your heart into what matters.”</p>
+              </div>
+            </div>
+
+            <!-- Node 3 -->
+            <div class="timeline-node" data-step="3">
+              <div class="node-marker">
+                <span class="node-pulse"></span>
+                <span class="node-core"></span>
+              </div>
+              <div class="node-content glass-card">
+                <span class="node-badge">STEP 03</span>
+                <h3 class="node-title">GROWTH</h3>
+                <p class="node-desc">“Learn from every experience.”</p>
+              </div>
+            </div>
+
+            <!-- Node 4 -->
+            <div class="timeline-node" data-step="4">
+              <div class="node-marker">
+                <span class="node-pulse"></span>
+                <span class="node-core"></span>
+              </div>
+              <div class="node-content glass-card">
+                <span class="node-badge">STEP 04</span>
+                <h3 class="node-title">SUCCESS</h3>
+                <p class="node-desc">“Celebrate every milestone.”</p>
+              </div>
+            </div>
+
+            <!-- Node 5 -->
+            <div class="timeline-node" data-step="5">
+              <div class="node-marker">
+                <span class="node-pulse"></span>
+                <span class="node-core"></span>
+              </div>
+              <div class="node-content glass-card">
+                <span class="node-badge">STEP 05</span>
+                <h3 class="node-title">HAPPINESS</h3>
+                <p class="node-desc">“Build a life that makes you genuinely happy.”</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE “OPEN YOUR WISH” EXPERIENCE -->
+    <section id="letter" class="envelope-section section-padding" aria-label="Personal Letter For Arushi">
+      <div class="container text-center">
+        <div class="section-header">
+          <span class="section-eyebrow">A Sealed Keepsake</span>
+          <h2 class="section-title">You Have One More Message Waiting…</h2>
+          <p class="section-lead">Click the envelope below to unlock the handwritten letter tucked inside.</p>
+        </div>
+
+        <div class="envelope-interaction-box">
+          <div class="envelope-stage" id="envelopeStage">
+            <div class="envelope-3d" id="envelopeContainer" role="button" tabindex="0" aria-label="Open personal letter envelope">
+              <!-- Envelope Back -->
+              <div class="envelope-back"></div>
+
+              <!-- Inside preview teaser -->
+              <div class="envelope-letter-peeking" id="letterPeeking" aria-hidden="true">
+                <span class="peeking-badge">Dear Arushi... 🌸</span>
+              </div>
+
+              <!-- Envelope Pocket & Flap -->
+              <div class="envelope-pocket"></div>
+              <div class="envelope-flap" id="envelopeFlap">
+                <div class="wax-seal">
+                  <span>AJ</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="envelope-action-wrap">
+            <button id="openEnvelopeBtn" class="btn btn-primary envelope-btn">
+              <span id="envelopeBtnText">OPEN IT 💌</span>
+            </button>
+            <p class="envelope-hint">Click the envelope or button to read your personal message</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEDICATED FULL HANDWRITTEN LETTER MODAL/VIEWPORT (PERFECTLY READABLE) -->
+    <div id="letterModal" class="letter-modal-overlay" role="dialog" aria-modal="true" aria-label="Personal Letter from the Heart" hidden>
+      <div class="letter-modal-backdrop" id="letterModalBackdrop"></div>
+      <div class="letter-modal-dialog">
+        <button class="letter-close-btn" id="letterModalCloseBtn" aria-label="Close letter">✕</button>
+        <article class="letter-parchment-sheet">
+          <div class="letter-seal-badge">🌸</div>
+          <header class="letter-header">
+            <h3 class="letter-salutation">Dear Arushi,</h3>
+          </header>
+          <div class="letter-content-body">
+            <p>Whatever path you choose, I hope it takes you somewhere that makes you happy.</p>
+            <p>I hope you achieve things you once thought were impossible.</p>
+            <p>I hope you surround yourself with people who appreciate you.</p>
+            <p>And most importantly, I hope you never forget your own worth.</p>
+            <p>Keep smiling, keep growing and keep believing in yourself.</p>
+            <p>The future has so many beautiful things waiting for you.</p>
+          </div>
+          <footer class="letter-closing">
+            <p class="letter-sign">Always cheering for you. ❤️</p>
+          </footer>
+        </article>
+      </div>
+    </div>
+
+    <!-- “ONE LITTLE THING I WANT YOU TO REMEMBER” 🌸 (Don't Get Too Angry 😄) -->
+    <section id="smile" class="smile-section section-padding" aria-label="A Gentle Playful Reminder">
+      <div class="floating-cute-elements" aria-hidden="true">
+        <span class="cloud-decor cloud-1">☁️</span>
+        <span class="cloud-decor cloud-2">🌸</span>
+        <span class="cloud-decor cloud-3">✨</span>
+        <span class="cloud-decor cloud-4">☁️</span>
+        <span class="cloud-decor cloud-5">🌷</span>
+      </div>
+
+      <div class="container smile-container">
+        <div class="smile-card glass-card text-center">
+          <div class="smile-badge">
+            <span>🌸 One Little Thing to Remember</span>
+          </div>
+
+          <h2 class="smile-heading">And Arushi… Don’t Get Too Angry 😄</h2>
+
+          <div class="smile-text-content">
+            <p>Life is too beautiful to spend too much time being angry.</p>
+            <p>Of course, you will have moments when things don't go your way. You'll get annoyed, frustrated and sometimes really angry—and that's completely human.</p>
+            <p>But whenever you can, take a breath, let it go, smile and move forward.</p>
+            <p class="smile-highlight-line">Don't let small things steal your beautiful smile.</p>
+            <p><strong>Your happiness matters.</strong></p>
+            <p>So laugh a little more, worry a little less, forgive a little easier and enjoy the little moments.</p>
+            <p class="smile-leadup">And most importantly…</p>
+
+            <div class="smile-reveal-banner" id="smileBanner">
+              <h3 class="smile-big-text">KEEP SMILING, ARUSHI. 😊✨</h3>
+            </div>
+
+            <p class="smile-sub-reason">Because your smile is meant for much better things than being hidden behind anger.</p>
+          </div>
+
+          <div class="smile-interactive-action">
+            <button id="smileCommitBtn" class="btn btn-gold smile-btn">
+              <span>Okay, I’ll Smile 😄</span>
+            </button>
+            <div id="smileFeedback" class="smile-feedback-msg" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- “WE ARE ALWAYS WITH YOU” SECTION -->
+    <section id="support" class="support-section section-padding" aria-label="We Are Always With You">
+      <div class="support-stars-bg" aria-hidden="true"></div>
+      <div class="container text-center">
+        <div class="support-box glass-card">
+          <span class="section-eyebrow">Unconditional Encouragement</span>
+          <h2 class="support-heading">And Whenever You Need a Reminder…</h2>
+          
+          <div class="support-reveal-center">
+            <p class="support-standalone-text">“You are not alone.”</p>
+          </div>
+
+          <div class="support-body-text">
+            <p>Life will have its ups and downs. There will be amazing days and difficult days.</p>
+            <p>But through all of it, remember that there are people who care about you, believe in you and genuinely want to see you happy and successful.</p>
+            <p>We may not always have the perfect words, but our good wishes will always be with you.</p>
+          </div>
+
+          <div class="support-footer-banner">
+            <p class="support-cheer">Keep going. We are rooting for you. ✨</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEMORY GALLERY -->
+    <section id="memories" class="memories-section section-padding" aria-label="Moments and Memories">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-eyebrow">Cherished Chapters</span>
+          <h2 class="section-title">Little Moments, Beautiful Memories</h2>
+          <p class="section-lead">A canvas of laughter, sunsets, and warm stories shared along the way.</p>
+        </div>
+
+        <div class="gallery-controls-bar">
+          <span class="gallery-count" id="galleryCount">Showing 4 Memories</span>
+          <button id="addMemoryBtn" class="btn btn-secondary glass-button btn-sm">
+            <span>+ Add a Memory</span>
+          </button>
+          <input type="file" id="memoryFileInput" accept="image/*" class="sr-only" aria-hidden="true">
+        </div>
+
+        <div class="masonry-gallery" id="memoryGalleryGrid">
+          <!-- Memory 1: Her Real Portrait -->
+          <figure class="gallery-item featured-memory aspect-portrait" data-index="0" data-caption="That radiant, genuine smile that brightens up every room.">
+            <div class="gallery-img-wrapper">
+              <img src="assets/arushi_portrait.jpg" alt="Photograph of Arushi smiling warmly" loading="lazy">
+              <div class="gallery-overlay">
+                <span class="overlay-icon">🔍</span>
+                <span class="overlay-title">The Radiant Smile</span>
+              </div>
+            </div>
+            <figcaption class="gallery-caption">The Radiant Smile — Pure Joy & Warmth</figcaption>
+          </figure>
+
+          <!-- Memory 2: Group Night with Gang (Wide) -->
+          <figure class="gallery-item span-wide aspect-wide" data-index="1" data-caption="Unforgettable nights with the gang: endless laughs, inside jokes, and memories under the night sky.">
+            <div class="gallery-img-wrapper">
+              <img src="assets/memory_group_night.jpg" alt="Arushi and friends posing cheerfully on the lawn at night" loading="lazy">
+              <div class="gallery-overlay">
+                <span class="overlay-icon">🔍</span>
+                <span class="overlay-title">Celebrations with the Gang</span>
+              </div>
+            </div>
+            <figcaption class="gallery-caption">Nights with the Gang — Endless Laughter & Belonging</figcaption>
+          </figure>
+
+          <!-- Memory 3: Duo Mirror Selfie -->
+          <figure class="gallery-item aspect-portrait" data-index="2" data-caption="Two of a kind: matching energy, candid mirror selfies, and effortless fun.">
+            <div class="gallery-img-wrapper">
+              <img src="assets/memory_duo_selfie.jpg" alt="Arushi in white shirt taking a candid mirror selfie with her close friend" loading="lazy">
+              <div class="gallery-overlay">
+                <span class="overlay-icon">🔍</span>
+                <span class="overlay-title">Candid Best Friend Moments</span>
+              </div>
+            </div>
+            <figcaption class="gallery-caption">Candid Best Friend Moments — Unfiltered Fun</figcaption>
+          </figure>
+
+          <!-- Memory 4: Trio Friends Mirror Selfie -->
+          <figure class="gallery-item aspect-square" data-index="3" data-caption="Trio of smiles: shared adventures, conference days, and little joyful memories.">
+            <div class="gallery-img-wrapper">
+              <img src="assets/memory_friends_trio.png" alt="Arushi and two friends smiling warmly during a conference" loading="lazy">
+              <div class="gallery-overlay">
+                <span class="overlay-icon">🔍</span>
+                <span class="overlay-title">Trio of Smiles</span>
+              </div>
+            </div>
+            <figcaption class="gallery-caption">Trio of Smiles — Conferences & Shared Adventures</figcaption>
+          </figure>
+        </div>
+
+        <div class="gallery-footer-quote text-center">
+          <p>“Some moments become memories before we even realize how special they are.”</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- “YOUR NEXT CHAPTER” SECTION -->
+    <section id="chapters" class="chapters-section section-padding" aria-label="Your Next Chapter">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-eyebrow">The Unfolding Book</span>
+          <h2 class="section-title">Your Next Chapter</h2>
+          <p class="section-lead">Every phase has led to this moment. The story is yours to design.</p>
+        </div>
+
+        <div class="chapters-grid">
+          <!-- Chapter 1 -->
+          <div class="chapter-card glass-card">
+            <div class="chapter-badge">CHAPTER 01</div>
+            <h3 class="chapter-name">“The Beginning”</h3>
+            <p class="chapter-desc">Every great journey starts with a simple step and a curious heart.</p>
+          </div>
+
+          <!-- Chapter 2 -->
+          <div class="chapter-card glass-card">
+            <div class="chapter-badge">CHAPTER 02</div>
+            <h3 class="chapter-name">“The Dreams”</h3>
+            <p class="chapter-desc">The ambitions, ideas, and quiet hopes that spark your passion.</p>
+          </div>
+
+          <!-- Chapter 3 -->
+          <div class="chapter-card glass-card">
+            <div class="chapter-badge">CHAPTER 03</div>
+            <h3 class="chapter-name">“The Challenges”</h3>
+            <p class="chapter-desc">The hurdles that test you, only to reveal how resilient you truly are.</p>
+          </div>
+
+          <!-- Chapter 4 -->
+          <div class="chapter-card glass-card">
+            <div class="chapter-badge">CHAPTER 04</div>
+            <h3 class="chapter-name">“The Growth”</h3>
+            <p class="chapter-desc">The lessons learned, the wisdom gained, and the strength discovered.</p>
+          </div>
+
+          <!-- Chapter 5 -->
+          <div class="chapter-card glass-card">
+            <div class="chapter-badge">CHAPTER 05</div>
+            <h3 class="chapter-name">“The Success”</h3>
+            <p class="chapter-desc">The victories earned, the dreams realized, and milestones celebrated.</p>
+          </div>
+
+          <!-- Chapter 6 -->
+          <div class="chapter-card glass-card highlight-card">
+            <div class="chapter-badge">CHAPTER 06</div>
+            <h3 class="chapter-name">“The Life You Create”</h3>
+            <p class="chapter-desc">A rich, meaningful tapestry shaped by your own courage and joy.</p>
+          </div>
+        </div>
+
+        <div class="chapter-climax text-center">
+          <p class="chapter-best-part">“And the best part?”</p>
+          <h3 class="chapter-write-callout">You get to write the next chapter.</h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEAUTIFUL MINIMALIST QUOTE SECTION -->
+    <section class="minimalist-quote-section" aria-label="Inspirational Quote">
+      <div class="slow-gradient-backdrop" aria-hidden="true"></div>
+      <div class="container text-center">
+        <blockquote class="massive-quote">
+          “The future belongs to those who believe in the beauty of their dreams.”
+        </blockquote>
+        <cite class="quote-author">— Eleanor Roosevelt</cite>
+      </div>
+    </section>
+
+    <!-- WISHES WALL -->
+    <section id="wishwall" class="wishwall-section section-padding" aria-label="A Wall of Good Wishes">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-eyebrow">Floating Blessings</span>
+          <h2 class="section-title">A Wall of Good Wishes</h2>
+          <p class="section-lead">Gentle notes of positivity, hope, and kindness floating in harmony.</p>
+        </div>
+
+        <div class="wishwall-actions text-center">
+          <button id="addWishBtn" class="btn btn-secondary glass-button">
+            <span>+ Leave a Wish for Arushi</span>
+          </button>
+        </div>
+
+        <div class="wishes-wall-container" id="wishesWallContainer">
+          <!-- Preset Wishes -->
+          <div class="floating-wish-card wish-float-1" data-id="1">
+            <span class="wish-pin">🌸</span>
+            <p class="wish-text">“May you always smile.”</p>
+          </div>
+
+          <div class="floating-wish-card wish-float-2" data-id="2">
+            <span class="wish-pin">✨</span>
+            <p class="wish-text">“May your dreams come true.”</p>
+          </div>
+
+          <div class="floating-wish-card wish-float-3" data-id="3">
+            <span class="wish-pin">🌟</span>
+            <p class="wish-text">“May success find you.”</p>
+          </div>
+
+          <div class="floating-wish-card wish-float-4" data-id="4">
+            <span class="wish-pin">🌿</span>
+            <p class="wish-text">“May you always stay happy.”</p>
+          </div>
+
+          <div class="floating-wish-card wish-float-5" data-id="5">
+            <span class="wish-pin">🤍</span>
+            <p class="wish-text">“May you meet wonderful people.”</p>
+          </div>
+
+          <div class="floating-wish-card wish-float-6" data-id="6">
+            <span class="wish-pin">🌷</span>
+            <p class="wish-text">“May every year be better than the last.”</p>
+          </div>
+
+          <div class="floating-wish-card wish-float-7" data-id="7">
+            <span class="wish-pin">💫</span>
+            <p class="wish-text">“May you always believe in yourself.”</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CINEMATIC SECTION -->
+    <section id="finale" class="final-cinematic-section" aria-label="Grand Finale">
+      <div class="final-cosmos-bg" aria-hidden="true"></div>
+      <div class="final-glow-orb" aria-hidden="true"></div>
+      
+      <div class="container finale-content text-center">
+        <div class="finale-step-sequence" id="finaleSequence">
+          <p class="finale-line step-1" data-step="1">Arushi…</p>
+          <p class="finale-line step-2" data-step="2">Keep dreaming.</p>
+          <p class="finale-line step-3" data-step="3">Keep smiling.</p>
+          <p class="finale-line step-4" data-step="4">Keep becoming the person you want to be.</p>
+        </div>
+
+        <div class="finale-grand-reveal" id="finaleGrandReveal">
+          <h2 class="finale-huge-text text-gold">
+            GOOD LUCK FOR EVERYTHING AHEAD. ✨
+          </h2>
+          <p class="finale-subtext">
+            May your life be beautiful, meaningful, successful and full of happiness.
+          </p>
+          <div class="finale-reminder-wrap">
+            <p class="finale-and-always">And always remember…</p>
+            <h3 class="finale-rooting-text">We are always rooting for you. ❤️</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FINAL SIGNATURE & FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container text-center">
+      <div class="footer-seal" aria-hidden="true">
+        <span>✨ 🌸 ✨</span>
+      </div>
+      <p class="footer-dedication">Made especially for Arushi Jha</p>
+      <p class="footer-subtext">With lots of love, good wishes and hope for an amazing future.</p>
+      <div class="footer-links">
+        <a href="#hero" class="back-to-top-link" id="backToTopBtn">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FULLSCREEN LIGHTBOX MODAL -->
+  <div id="galleryLightbox" class="lightbox-modal" role="dialog" aria-modal="true" aria-label="Photo Preview" hidden>
+    <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+    <div class="lightbox-container">
+      <button class="lightbox-close" id="lightboxCloseBtn" aria-label="Close photo preview">✕</button>
+      <button class="lightbox-nav lightbox-prev" id="lightboxPrevBtn" aria-label="Previous photograph">‹</button>
+      <div class="lightbox-media-wrap">
+        <img id="lightboxImg" src="" alt="Enlarged view">
+        <p id="lightboxCaption" class="lightbox-caption"></p>
+      </div>
+      <button class="lightbox-nav lightbox-next" id="lightboxNextBtn" aria-label="Next photograph">›</button>
+    </div>
+  </div>
+
+  <!-- ADD WISH MODAL -->
+  <div id="addWishModal" class="custom-modal" role="dialog" aria-modal="true" aria-label="Add a Wish" hidden>
+    <div class="modal-backdrop" id="wishModalBackdrop"></div>
+    <div class="modal-dialog glass-card">
+      <button class="modal-close" id="wishModalCloseBtn" aria-label="Close modal">✕</button>
+      <h3 class="modal-title">Leave a Wish for Arushi</h3>
+      <p class="modal-desc">Share a warm wish or positive reminder that will float on her wish wall.</p>
+      <form id="addWishForm">
+        <div class="form-group">
+          <label for="wishInput" class="form-label">Your Message</label>
+          <textarea id="wishInput" class="form-textarea" rows="3" placeholder="e.g. May you conquer every challenge with confidence!" required maxlength="120"></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="cancelWishBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Pin to Wall ✨</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Lenis Smooth Scroller Local Library -->
+  <script src="assets/lenis.min.js"></script>
+  <!-- Main Script -->
+  <script src="script.js"></script>
+</body>
+</html>
